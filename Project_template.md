@@ -344,7 +344,123 @@ classDiagram
 
 # Задание 3. Разработка ER-диаграммы
 
-Добавьте сюда ER-диаграмму. Она должна отражать ключевые сущности системы, их атрибуты и тип связей между ними.
+```mermaid
+erDiagram
+    User {
+        string id
+        string email
+        string password_hash
+        string first_name
+        string last_name
+        string role_id
+        string created_at
+        string updated_at
+    }
+    
+    House {
+        string id
+        string user_id
+        string address
+        string name
+        string created_at
+        string updated_at
+    }
+
+    Device {
+        string id
+        string type_id
+        string house_id
+        string serial_number
+        string status
+        string name
+        string config
+        string created_at
+        string updated_at
+    }
+
+    DeviceType {
+        string id
+        string name
+        string description
+        string created_at
+        string updated_at
+    }
+
+    Module {
+        string id
+        string house_id
+        string name
+        string type
+        string status
+        string created_at
+        string updated_at
+    }
+
+    TelemetryData {
+        string id
+        string device_id
+        string timestamp
+        string data
+        string unit
+        string created_at
+    }
+
+    DeviceCommand {
+        string id
+        string device_id
+        string command
+        string timestamp
+        string status
+    }
+
+    Role {
+        string id
+        string name
+        string permissions
+        string created_at
+        string updated_at
+    }
+
+    SystemSettings {
+        string id
+        string temperature_threshold
+        string timezone
+        string notifications_enabled
+        string created_at
+        string updated_at
+    }
+
+    %% Связи
+    User ||--o| House : "владеет"
+    House ||--o| Device : "содержит"
+    DeviceType ||--o| Device : "определяет"
+    Device ||--o| TelemetryData : "генерирует"
+    Device ||--o| DeviceCommand : "принимает"
+    Role ||--o| User : "назначена"
+    House ||--o| Module : "включает"
+    Module ||--o| Device : "управляет"
+    User ||--o| SystemSettings : "имеет"
+
+```
+
+- User: Пользователь имеет связь с домами, которые ему принадлежат, и с настройками системы.
+
+- House: Дом содержит устройства и модули.
+
+- Device: Устройство связано с типом устройства, домом, может генерировать данные телеметрии и принимать команды.
+
+- DeviceType: Тип устройства может быть связан с множеством устройств.
+
+- Module: Модуль связан с домом и может управлять несколькими устройствами.
+
+- TelemetryData: Записи телеметрии генерируются устройствами.
+
+- DeviceCommand: Устройство может получать множество команд.
+
+- Role: Роль пользователя может быть присвоена нескольким пользователям.
+
+- SystemSettings: Каждый пользователь может иметь свои настройки системы.
+
 
 
 # ❌ Задание 4. Создание и документирование API
