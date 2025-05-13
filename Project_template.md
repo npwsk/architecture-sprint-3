@@ -431,7 +431,7 @@ erDiagram
     }
 
     %% Связи
-    User ||--o| House : "владеет"
+    User }|--o{ House : "владеет"
     House ||--o| Device : "содержит"
     DeviceType ||--o| Device : "определяет"
     Device ||--o| TelemetryData : "генерирует"
